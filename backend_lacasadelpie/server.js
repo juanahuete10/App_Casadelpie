@@ -6,11 +6,13 @@ const bodyParser = require('body-parser'); // Importa body-parser
 const app = express();
 const port = 5000;
 
+app.use(express.json());
+
 // Configuración de la conexión a la base de datos
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '123y',
+  password: 'gitdev2051',
   database: 'casadelpies1'
 });
 

@@ -296,16 +296,16 @@ router.delete('/deletePagos/:id_Pago', (req, res) => {
 // Ruta para crear un nuevo registro con ID específico
 router.post('/createPromocionesyDescuentos', (req, res) => {
   // Recibe los datos del nuevo registro desde el cuerpo de la solicitud (req.body)
-  const { id_Promociones, codigoDescuentos, condiciones, fecha_Inicio, fecha_Fin } = req.body;
+  const { codigoDescuentos, condiciones, fecha_Inicio, fecha_Fin } = req.body;
 
   // Verifica si se proporcionaron los datos necesarios
-  if (!id_Promociones || !codigoDescuentos || !condiciones || !fecha_Inicio || !fecha_Fin) {
+  if (!codigoDescuentos || !condiciones || !fecha_Inicio || !fecha_Fin) {
     return res.status(400).json({ error: 'Todos los campos son obligatorios' });
   }
 
   // Realiza la consulta SQL para insertar un nuevo registro con ID específico
-  const sql = `INSERT INTO promocionesydescuentos (ID_Promociones, CodigoDescuentos, Condiciones, Fecha_Inicio, Fecha_Fin) VALUES (?, ?, ?, ?, ?)`;
-  const values = [id_Promociones, codigoDescuentos, condiciones, fecha_Inicio, fecha_Fin];
+  const sql = `INSERT INTO promocionesydescuentos (codigoDescuentos, condiciones, fecha_Inicio, fecha_Fin) VALUES ( ?, ?, ?, ?)`;
+  const values = [codigoDescuentos, condiciones, fecha_Inicio, fecha_Fin];
 
   // Ejecuta la consulta
   db.query(sql, values, (err, result) => {
@@ -314,7 +314,7 @@ router.post('/createPromocionesyDescuentos', (req, res) => {
       res.status(500).json({ error: 'Error al insertar registro' });
     } else {
       // Devuelve el ID del nuevo registro como respuesta
-      res.status(201).json({ id_Promociones });
+      res.status(200).json({ text: "" });
     }
   });
 });
@@ -594,16 +594,16 @@ router.get('/readclientes', (req, res) => {
 // Ruta para crear un nuevo registro con ID específico
 router.post('/createClientes', (req, res) => {
   // Recibe los datos del nuevo registro desde el cuerpo de la solicitud (req.body)
-  const { id_Cliente, cedula, nombre, apellido, historialdecompras, direccionEnvio } = req.body;
+  const { cedula, nombre, apellido, historialdecompras, direccionEnvio } = req.body;
 
   // Verifica si se proporcionaron los datos necesarios
-  if (!id_Cliente || !cedula|| !nombre || !apellido || !historialdecompras|| !direccionEnvio) {
+  if (!cedula|| !nombre || !apellido || !historialdecompras|| !direccionEnvio) {
     return res.status(400).json({ error: 'Todos los campos son obligatorios' });
   }
 
   // Realiza la consulta SQL para insertar un nuevo registro con ID específico
-  const sql = `INSERT INTO Clientes (id_Cliente, cedula, nombre, apellido, historialdecompras, direccionEnvio) VALUES (?, ?, ?, ?, ?, ?)`;
-  const values = [id_Cliente, cedula, nombre, apellido, historialdecompras, direccionEnvio];
+  const sql = `INSERT INTO Clientes (cedula, nombre, apellido, historialdecompras, direccionEnvio) VALUES (?, ?, ?, ?, ?)`;
+  const values = [cedula, nombre, apellido, historialdecompras, direccionEnvio];
 
   // Ejecuta la consulta
   db.query(sql, values, (err, result) => {
@@ -612,7 +612,7 @@ router.post('/createClientes', (req, res) => {
       res.status(500).json({ error: 'Error al insertar registro' });
     } else {
       // Devuelve el ID del nuevo registro como respuesta
-      res.status(201).json({ id_Cliente });
+      res.status(200).json({ ok: 'Registro ingresado' });
     }
   });
 });
